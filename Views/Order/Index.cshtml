@@ -1,0 +1,121 @@
+﻿@* @model IEnumerable<Project6.Models.Order> *@
+
+@model PagedList.IPagedList<Project6.Models.Order>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+       <th>
+            @* @Html.DisplayNameFor(model => model.Customers.CompanyName) *@
+           @Html.ActionLink("CompanyName", "Index", new {sortOrder=ViewBag.NameSortParm})
+        </th>
+        
+
+
+        <th>
+            EmployeeID
+        </th>
+
+        <th>
+            @* @Html.DisplayNameFor(model => model.OrderDate) *@
+            @Html.ActionLink("OrderDate", "Index", new { sortOrder=ViewBag.DateSortParm})
+
+        </th>
+
+
+        <th>
+           RequiredDate
+        </th>
+        <th>
+            ShippedDate
+        </th>
+        <th>
+           ShipVia
+        </th>
+        <th>
+        Freight
+        </th>
+        <th>
+            ShipName
+        </th>
+        <th>
+            ShipAddress
+        </th>
+        <th>
+           ShipCity
+        </th>
+        <th>
+           ShipRegion
+        </th>
+        <th>
+           ShipPostalCode
+        </th>
+        <th>
+           ShipCountry
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customers.CompanyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequiredDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShippedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipVia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Freight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipRegion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipPostalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipCountry)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrderID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br/>
+Page @(Model.PageCount <Model.PageNumber ?0:Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page}))

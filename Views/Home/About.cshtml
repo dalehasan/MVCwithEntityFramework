@@ -1,0 +1,26 @@
+﻿
+    @model IEnumerable<Project6.ViewModel.OrderGroup>
+
+
+        @{
+            ViewBag.Title = "Order Count per date";
+        }
+        <h2>Order Count per Date</h2>
+        
+
+        <table>
+            <tr>
+                <th>Order Date</th>
+                <th>Order</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem=>item.OrderDate)</td>
+                    <td>@item.OrderCount</td>
+                </tr>
+            }
+
+        </table>
+        <br/>

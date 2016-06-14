@@ -1,0 +1,108 @@
+﻿@*
+    @model IEnumerable<Project6.Models.Customer>
+*@
+
+@model Project6.ViewModel.CustomerIndexData
+
+@{
+    ViewBag.Title = "CustomerIndex";
+}
+
+<h2>Customer Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            CompanyName
+        </th>
+        <th>
+           ContactName
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Customers) {
+
+    string selectedRow = "";
+    if(item.CustomerID ==ViewBag.CustomerID)
+    {
+        selectedRow = "success";
+    }
+    
+    <tr class="@selectedRow" valign="top">
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactName)
+        </td>
+ 
+    
+        <td>
+            @Html.ActionLink("Select", "Index", new { id = item.CustomerID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CustomerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerID })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+
+
+@if (Model.Orders !=null)
+{
+    <h3>Order related to this customer</h3>
+    <table class="table">
+        <tr>
+           
+            <th>OrderID</th>
+            <th>ShipName</th>
+            <th>ShippedDate</th>
+        </tr>
+        @foreach (var item in Model.Orders)
+        {
+            string selectedRow = "";
+            if(item.CustomerID == ViewBag.CourseID)
+            {
+                selectedRow = "success";
+            }
+            
+            <tr class="@selectedRow">
+            @*  <td>@Html.ActionLink("Select", "Index", new { orderID = item.OrderID })</td>*@ 
+                <td>@item.OrderID</td>
+                <td>@item.ShipName</td>
+                <td>@item.ShippedDate</td>
+            </tr>
+            
+        }
+    </table>
+}
+
+@if(Model.OrderDetails != null)
+{
+    <h3>Product related to order or customer</h3>
+    <table class="table">
+        <tr>
+           
+            <th>ProductName</th>
+        </tr>
+
+        @foreach(var item in Model.OrderDetails)
+        {
+            <tr>
+              
+                <td>
+                    @item.UnitPrice
+                </td>
+            </tr>
+        }
+    </table>
+}
+
